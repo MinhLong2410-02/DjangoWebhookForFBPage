@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv("./.env")
 PAGE_ACCESS_TOKEN = os.getenv("PAGE_ACCESS_TOKEN")
-
+APP_SECRET = os.getenv("APP_SECRET")
 # Create your views here.
 class VerifyView(APIView):
     def get(self, request, *args, **kwargs):
