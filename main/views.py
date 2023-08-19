@@ -27,8 +27,10 @@ class VerifyView(APIView):
                     if messaging_event.get("message"):
                         print(messaging_event["message"])
                         if messaging_event["message"].get("text"):
+                            print(messaging_event["message"].get("text"))
                             message_text = messaging_event["message"]["text"]
                             send_message(sender_id, message_text)
+                            print(message_text)
         return HttpResponse("POST SUCESSFULLY", status=200)
 
 class DeploymentView(APIView):
