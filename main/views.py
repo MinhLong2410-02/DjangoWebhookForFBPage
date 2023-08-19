@@ -16,6 +16,6 @@ class VerifyView(APIView):
             return HttpResponse(request.GET["hub.challenge"], status=200)
         return HttpResponse("Hello world", status=200)
 
-class VerifyView(APIView):
+class DeploymentView(APIView):
     def get(self, request, *args, **kwargs):
         return HttpResponse("DEPLOY SUCESSFULLY", status=200)
