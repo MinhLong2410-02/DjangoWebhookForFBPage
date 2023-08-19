@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         {
-            "src": "IUH_Chatiblewsgi.py",
+            "src": "IUH_Chatible/wsgi.py",
             "use": "@vercel/python",
             "config": {
                 "maxLambdaSize": "15mb",
