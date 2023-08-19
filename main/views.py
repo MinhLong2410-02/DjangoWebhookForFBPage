@@ -19,6 +19,7 @@ class VerifyView(APIView):
     
     def post(self, request, *args, **kwargs):
         data = request.data
+        print(data)
         if data["object"] == "page":
             for entry in data["entry"]:
                 for messaging_event in entry["messaging"]:
