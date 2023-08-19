@@ -19,13 +19,13 @@ class VerifyView(APIView):
     
     def post(self, request, *args, **kwargs):
         data = request.data
-        print(data)
         if data["object"] == "page":
             for entry in data["entry"]:
                 for messaging_event in entry["messaging"]:
                     sender_id = messaging_event["sender"]["id"]
                     recipient_id = messaging_event["recipient"]["id"]
                     if messaging_event.get("message"):
+                        print(messaging_event["message"])
                         if messaging_event["message"].get("text"):
                             message_text = messaging_event["message"]["text"]
                             send_message(sender_id, message_text)
