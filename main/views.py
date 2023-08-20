@@ -5,18 +5,23 @@ from django.http import HttpResponse
 import os
 from dotenv import load_dotenv
 from .bot import *
+
 load_dotenv("./.env")
 PAGE_ACCESS_TOKEN = os.getenv("PAGE_ACCESS_TOKEN")
 APP_SECRET = os.getenv("APP_SECRET")
+
+
 # Create your views here.
 class VerifyView(APIView):
     def get(self, request, *args, **kwargs):
-        if request.GET.get("hub.mode") == "subscribe" and request.GET.get("hub.challenge"):
-            if not request.GET.get("hub.verify_token") == PAGE_ACCESS_TOKEN:
+        if request.GET.get("hub.mode") == "subscribe" and request.GET.get(
+                "hub.challenge"):
+            if not request.GET.get("hub.verify_token") == APP_SECRET:
+                print(request.GET.get("hub.verify_token"))
                 return HttpResponse("Verification token mismatch", status=403)
             return HttpResponse(request.GET["hub.challenge"], status=200)
         return HttpResponse("Hello world", status=200)
-    
+
     def post(self, request, *args, **kwargs):
         data = request.data
         if data["object"] == "page":
@@ -25,13 +30,11 @@ class VerifyView(APIView):
                     sender_id = messaging_event["sender"]["id"]
                     recipient_id = messaging_event["recipient"]["id"]
                     if messaging_event.get("message"):
-                        print(messaging_event["message"])
                         if messaging_event["message"].get("text"):
-                            print(messaging_event["message"].get("text"))
                             message_text = messaging_event["message"]["text"]
                             send_message(sender_id, message_text)
-                            print(message_text)
         return HttpResponse("POST SUCESSFULLY", status=200)
+
 
 class DeploymentView(APIView):
     def get(self, request, *args, **kwargs):
