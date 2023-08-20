@@ -3,10 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse
 import os
-from dotenv import load_dotenv
 from .bot import *
 
-load_dotenv("./.env")
 PAGE_ACCESS_TOKEN = os.getenv("PAGE_ACCESS_TOKEN")
 APP_SECRET = os.getenv("APP_SECRET")
 
